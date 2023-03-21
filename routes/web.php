@@ -1,6 +1,16 @@
 <?php
 
+use App\Models\image;
+use League\Flysystem\Filesystem;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\ServiceProvider;
+use Hypweb\Flysystem\GoogleDrive\GoogleDriveAdapter;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Google\Client as GoogleClient;
+use Google\Service\Drive;
+use Google\Service\Drive\DriveFile;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +24,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('from');
 });
