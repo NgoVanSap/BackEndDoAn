@@ -1,15 +1,16 @@
 <?php
 
 use App\Models\image;
-use League\Flysystem\Filesystem;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\ServiceProvider;
-use Hypweb\Flysystem\GoogleDrive\GoogleDriveAdapter;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Google\Client as GoogleClient;
 use Google\Service\Drive;
+use Illuminate\Http\Request;
+use League\Flysystem\Filesystem;
+use Google\Client as GoogleClient;
 use Google\Service\Drive\DriveFile;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\ServiceProvider;
+use App\Http\Controllers\Admin\AddUserController;
+use Hypweb\Flysystem\GoogleDrive\GoogleDriveAdapter;
 
 
 /*
@@ -23,6 +24,23 @@ use Google\Service\Drive\DriveFile;
 |
 */
 
-Route::get('/', function () {
-    return view('from');
+/*
+Admin Dashboard
+*/
+Route::group(['prefix' => '/'], function () {
+    Route::get('/user', function () {
+
+        return view('Admin.user.addUser');
+
+    })->name('admin-add-user');
+    Route::get('/dashboard', function () {
+
+        return view('Admin.dashboard.dashboardAdmin');
+
+    })->name('admin-dashboard');
+
+    Route::post('/add/User/',[AddUserController::class,'addUser'])->name('add-User');
 });
+
+
+

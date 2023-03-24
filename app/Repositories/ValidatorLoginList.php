@@ -13,9 +13,9 @@ class ValidatorLoginList  implements ValidatorLoginInterface
         $input = $request->only('hoTen', 'email','password','soDienThoai','ngaySinh','diaChi','avatar','trangThai','phanQuyen');
         return Validator::make($input, [
             'hoTen'             => 'required',
-            'email'             => 'required_without:soDienThoai|unique:users|required',
+            'email'             => 'required|unique:users|required',
             'password'          => 'required|min:6',
-            'soDienThoai'       => 'required_without:soDienThoai|unique:users|required|numeric',
+            'soDienThoai'       => 'required|unique:users|required|numeric',
             'ngaySinh'          => 'required',
             'diaChi'            => 'required',
             'avatar'            => 'mimes:jpeg,png,jpg,gif|max:2048',
