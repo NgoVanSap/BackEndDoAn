@@ -31,7 +31,7 @@ use Hypweb\Flysystem\GoogleDrive\GoogleDriveAdapter;
 /*
 Admin Dashboard
 */
-Route::middleware('adminLogin')->group(function (){
+// Route::middleware('adminLogin')->group(function (){
 
         Route::get('user', function () {
 
@@ -60,7 +60,7 @@ Route::middleware('adminLogin')->group(function (){
 
 
         Route::get('logout',[AdminLoginController::class,'logout'])->name('logout-admin');
-});
+// });
 
 
 /*
