@@ -46,7 +46,6 @@ class AddUserController extends Controller
     public function userManagement() {
 
        $user = User::all();
-        dd($user);
         return view('Admin.userManagement.index');
     }
 }
