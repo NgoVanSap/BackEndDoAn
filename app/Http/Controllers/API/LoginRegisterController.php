@@ -19,13 +19,14 @@ class LoginRegisterController extends Controller
 {
 
    /*
-    Variable Validator Login
+    Variable Validator Register, Login
     */
-    public $validatorLogin;
+    public $validatorRegister;
 
-    public function __construct(ValidatorLoginList $validatorLogin) {
 
-        $this->validatorLogin = $validatorLogin;
+    public function __construct(ValidatorLoginList $validatorRegister) {
+
+        $this->validatorRegister = $validatorRegister;
 
     }
     /*
@@ -33,7 +34,7 @@ class LoginRegisterController extends Controller
     */
     public function register (Request $request) {
 
-        $validator = $this->validatorLogin->validatorLogin($request);
+        $validator = $this->validatorRegister->validatorRegister($request);
 
         $file = $request->file('avatar');
         $path = Storage::disk('google')->putFileAs('/', $file, $file->getClientOriginalName());
@@ -66,5 +67,22 @@ class LoginRegisterController extends Controller
             ]);
         }
 
+    }
+
+   /*
+    Login API
+    */
+    public function login(Request $request) {
+
+        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
+            $user = Auth::user();
+            $tokenResult =  $user->createToken('MyApp')->accessToken;
+            return response()->json([
+                'success' => 'Đăng nhập thành công!',
+                'token'  => $tokenResult->token,
+                'user'    => $user,
+            ]);
+        }
+            return response()->json(['error'=>'Tài khoản hoặc mật khẩu sai!'], 401);
     }
 }

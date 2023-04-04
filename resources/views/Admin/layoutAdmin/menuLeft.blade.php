@@ -36,7 +36,7 @@
                     </a>
                 </li>
                 <li class="sidenav-item">
-                    <a href="bui_badges.html" class="sidenav-link">
+                    <a href="{{ route('user-management') }}" class="sidenav-link">
                         <div>Quản lí người dùng </div>
                     </a>
                 </li>

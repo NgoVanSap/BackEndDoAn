@@ -100,7 +100,7 @@
             <div class="col-lg-12">
                 <div class="card mb-4">
                     <div class="card-header with-elements">
-                        <h6 class="card-header-title mb-0">Statistics</h6>
+                        <h6 class="card-header-title mb-0">Thống kê người dùng truy cập vào Website</h6>
                         <div class="card-header-elements ml-auto">
                             <label class="text m-0">
                                 <span class="text-light text-tiny font-weight-semibold align-middle">SHOW STATS</span>

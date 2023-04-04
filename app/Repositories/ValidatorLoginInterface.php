@@ -5,6 +5,5 @@ namespace App\Repositories;
 interface ValidatorLoginInterface
 {
 
-    public function validatorLogin($request);
-
+    public function validatorRegister($request);
 }

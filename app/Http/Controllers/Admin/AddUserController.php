@@ -2,44 +2,51 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use file;
+use Storage;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\ServiceProvider;
+use App\Repositories\ValidatorLoginList;
+use Illuminate\Support\Facades\Validator;
+use Hypweb\Flysystem\GoogleDrive\GoogleDriveAdapter;
 
 class AddUserController extends Controller
 {
     /*
     Add User
     */
-    public function addUser(Request $request) {
-        $request->validate([
-            'hoTen'             => 'required',
-            'email'             => 'required|unique:users|required',
-            'password'          => 'required|min:6',
-            'soDienThoai'       => 'required|unique:users|required|numeric',
-            'ngaySinh'          => 'required',
-            'diaChi'            => 'required',
-            'avatar'            => 'required|image',
-            'trangThai'         => 'required',
-            'phanQuyen'         => 'required',
-        ],[
-            'hoTen.required'    => 'Tên không được để trống',
-            'email.required'    => 'Email không được để trống',
-            'email.unique'      => 'Email này đã đăng kí',
-            'password.required' => 'Mật khẩu không được để trống',
-            'password.min'      => 'Mật khẩu phải lớn hơn 6 kí tự',
-            'soDienThoai.required' => 'Số điện thoại không được để trống',
-            'soDienThoai.unique'  => 'Số điện thoại đã được đăng kí',
-            'soDienThoai.numeric' => 'Số điện thoại phải là số',
-            'ngaySinh.required'   => 'Ngày sinh không được để trống',
-            'ngaySinh.date'       => 'Ngày sinh phải đúng định dạng',
-            'diaChi.required'     => 'Địa chỉ không được để trống',
-            'avatar.required'     => 'Hình ảnh không được để trống',
-            'avatar.image'        => 'Phải nhập đúng định dạng ảnh',
-            'trangThai.required'  => 'Trạng thái không được để trống',
-            'phanQuyen.required'  => 'Phân quyền không được để trống',
+    public function addUser(UserRequest $request) {
+
+
+
+        $image = $request->file('avatar');
+        $path = Storage::disk('google')->putFileAs('/', $image, $image->getClientOriginalName());
+        $url = Storage::disk('google')->url($path);
+
+       $create =  User::create([
+            'hoTen'         => $request->hoTen,
+            'email'         => $request->email,
+            'password'      => Hash::make($request->password),
+            'soDienThoai'   => $request->soDienThoai,
+            'ngaySinh'      => date('Y-m-d', strtotime($request->ngaySinh)),
+            'gioiTinh'      => $request->gioiTinh,
+            'diaChi'        => $request->diaChi,
+            'avatar'        => $url,
+            'trangThai'     => $request->trangThai,
+            'phanQuyen'     => $request->phanQuyen,
         ]);
+        return redirect()->back()->with('success', 'Thêm người dùng thành công');
+    }
 
+    public function userManagement() {
 
-        return redirect('/user')->with('success', 'Data has been stored successfully!');
+       $user = User::all();
+        dd($user);
+        return view('Admin.userManagement.index');
     }
 }

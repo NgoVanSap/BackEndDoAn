@@ -1,45 +1,53 @@
-$(function() {
-    new PerfectScrollbar(document.getElementById('tasks-inner'));
-    new PerfectScrollbar(document.getElementById('tab-table-1'));
-    new PerfectScrollbar(document.getElementById('tab-table-2'));
+$(function () {
+    new PerfectScrollbar(document.getElementById("tasks-inner"));
+    new PerfectScrollbar(document.getElementById("tab-table-1"));
+    new PerfectScrollbar(document.getElementById("tab-table-2"));
 });
-$(document).ready(function() {
-    setTimeout(function() {
+$(document).ready(function () {
+    setTimeout(function () {
         // Bar Chart
-        $(function() {
+        $(function () {
             am4core.useTheme(am4themes_animated);
             var chart = am4core.create("statistics-chart-1", am4charts.XYChart);
 
             // Add data
-            chart.data = [{
-                period: '2010',
-                iphone: 0,
-                itouch: 60
-            }, {
-                period: '2011',
-                iphone: 50,
-                itouch: 5
-            }, {
-                period: '2012',
-                iphone: 20,
-                itouch: 100
-            }, {
-                period: '2013',
-                iphone: 60,
-                itouch: 60
-            }, {
-                period: '2014',
-                iphone: 20,
-                itouch: 170
-            }, {
-                period: '2015',
-                iphone: 60,
-                itouch: 25
-            }, {
-                period: '2016',
-                iphone: 10,
-                itouch: 60
-            }];
+            chart.data = [
+                {
+                    period: "2010",
+                    iphone: 0,
+                    itouch: 60,
+                },
+                {
+                    period: "2011",
+                    iphone: 50,
+                    itouch: 5,
+                },
+                {
+                    period: "2012",
+                    iphone: 20,
+                    itouch: 100,
+                },
+                {
+                    period: "2013",
+                    iphone: 60,
+                    itouch: 60,
+                },
+                {
+                    period: "2014",
+                    iphone: 20,
+                    itouch: 170,
+                },
+                {
+                    period: "2015",
+                    iphone: 60,
+                    itouch: 25,
+                },
+                {
+                    period: "2016",
+                    iphone: 10,
+                    itouch: 60,
+                },
+            ];
 
             // Create axes
             var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
@@ -77,45 +85,43 @@ $(document).ready(function() {
             dropShadow.dx = 1;
             dropShadow.blur = 8;
             dropShadow.opacity = 0.5;
-            dropShadow.color = '#ff4a00';
+            dropShadow.color = "#ff4a00";
             series2.filters.push(dropShadow);
 
             // Add cursor
             chart.cursor = new am4charts.XYCursor();
             categoryAxis.renderer.grid.template.strokeOpacity = 0;
-
         });
-
-    }, 400)
-    buildchart()
-    $(window).on('resize', function() {
+    }, 400);
+    buildchart();
+    $(window).on("resize", function () {
         buildchart();
     });
-    $('#mobile-collapse').on('click', function() {
-        setTimeout(function() {
+    $("#mobile-collapse").on("click", function () {
+        setTimeout(function () {
             buildchart();
         }, 700);
     });
 });
 
 function buildchart() {
-    $(function() {
+    $(function () {
         //Flot Base Build Option for bottom join
         var options_bt = {
             legend: {
-                show: false
+                show: false,
             },
             series: {
                 label: "",
                 shadowSize: 0,
                 curvedLines: {
                     active: true,
-                    nrSplinePoints: 20
+                    nrSplinePoints: 20,
                 },
             },
             tooltip: {
                 show: true,
-                content: "x : %x | y : %y"
+                content: "x : %x | y : %y",
             },
             grid: {
                 hoverable: true,
@@ -128,40 +134,40 @@ function buildchart() {
                     left: 0,
                     bottom: 0,
                     right: 0,
-                }
+                },
             },
             yaxis: {
                 min: 0,
                 max: 30,
-                color: 'transparent',
+                color: "transparent",
                 font: {
                     size: 0,
-                }
+                },
             },
             xaxis: {
-                color: 'transparent',
+                color: "transparent",
                 font: {
                     size: 0,
-                }
-            }
+                },
+            },
         };
 
         //Flot Base Build Option for Center card
         var options_ct = {
             legend: {
-                show: false
+                show: false,
             },
             series: {
                 label: "",
                 shadowSize: 0,
                 curvedLines: {
                     active: true,
-                    nrSplinePoints: 20
+                    nrSplinePoints: 20,
                 },
             },
             tooltip: {
                 show: true,
-                content: "x : %x | y : %y"
+                content: "x : %x | y : %y",
             },
             grid: {
                 hoverable: true,
@@ -174,81 +180,91 @@ function buildchart() {
                     left: 8,
                     bottom: 8,
                     right: 8,
-                }
+                },
             },
             yaxis: {
                 min: 0,
                 max: 30,
-                color: 'transparent',
+                color: "transparent",
                 font: {
                     size: 0,
-                }
+                },
             },
             xaxis: {
-                color: 'transparent',
+                color: "transparent",
                 font: {
                     size: 0,
-                }
-            }
+                },
+            },
         };
         //Flot Order Chart Start
-        $.plot($("#order-chart-1"), [{
-            data: [
-                [0, 30],
-                [1, 5],
-                [2, 26],
-                [3, 10],
-                [4, 22],
-                [5, 30],
-                [6, 5],
-                [7, 26],
-                [8, 10],
+        $.plot(
+            $("#order-chart-1"),
+            [
+                {
+                    data: [
+                        [0, 30],
+                        [1, 5],
+                        [2, 26],
+                        [3, 10],
+                        [4, 22],
+                        [5, 30],
+                        [6, 5],
+                        [7, 26],
+                        [8, 10],
+                    ],
+                    color: "#fff",
+                    lines: {
+                        show: true,
+                        fill: false,
+                        lineWidth: 3,
+                    },
+                    points: {
+                        show: true,
+                        radius: 4,
+                        fillColor: "#fff",
+                        fill: true,
+                    },
+                    curvedLines: {
+                        apply: false,
+                    },
+                },
             ],
-            color: "#fff",
-            lines: {
-                show: true,
-                fill: false,
-                lineWidth: 3
-            },
-            points: {
-                show: true,
-                radius: 4,
-                fillColor: "#fff",
-                fill: true,
-            },
-            curvedLines: {
-                apply: false,
-            }
-        }], options_ct);
-        $.plot($("#ecom-chart-3"), [{
-            data: [
-                [0, 30],
-                [1, 5],
-                [2, 26],
-                [3, 10],
-                [4, 22],
-                [5, 30],
-                [6, 5],
-                [7, 26],
-                [8, 10],
+            options_ct
+        );
+        $.plot(
+            $("#ecom-chart-3"),
+            [
+                {
+                    data: [
+                        [0, 30],
+                        [1, 5],
+                        [2, 26],
+                        [3, 10],
+                        [4, 22],
+                        [5, 30],
+                        [6, 5],
+                        [7, 26],
+                        [8, 10],
+                    ],
+                    color: "#ff4a00",
+                    lines: {
+                        show: true,
+                        fill: false,
+                        lineWidth: 3,
+                    },
+                    points: {
+                        show: true,
+                        radius: 4,
+                        fillColor: "#fff",
+                        fill: true,
+                    },
+                    curvedLines: {
+                        apply: false,
+                    },
+                },
             ],
-            color: "#ff4a00",
-            lines: {
-                show: true,
-                fill: false,
-                lineWidth: 3
-            },
-            points: {
-                show: true,
-                radius: 4,
-                fillColor: "#fff",
-                fill: true,
-            },
-            curvedLines: {
-                apply: false,
-            }
-        }], options_ct);
-
-
+            options_ct
+        );
     });
 }

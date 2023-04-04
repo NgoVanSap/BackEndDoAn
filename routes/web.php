@@ -1,8 +1,11 @@
 <?php
 
+use App\Models\User;
 use App\Models\image;
 use Google\Service\Drive;
 use Illuminate\Http\Request;
+use App\Services\Analytics as MyAnalytics;
+use Spatie\Analytics\Period;
 use League\Flysystem\Filesystem;
 use Google\Client as GoogleClient;
 use Google\Service\Drive\DriveFile;
@@ -10,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Controllers\Admin\AddUserController;
+use App\Http\Controllers\Admin\AdminLoginController;
 use Hypweb\Flysystem\GoogleDrive\GoogleDriveAdapter;
 
 
@@ -27,20 +31,50 @@ use Hypweb\Flysystem\GoogleDrive\GoogleDriveAdapter;
 /*
 Admin Dashboard
 */
-Route::group(['prefix' => '/'], function () {
-    Route::get('/user', function () {
+Route::middleware('adminLogin')->group(function (){
 
-        return view('Admin.user.addUser');
+        Route::get('user', function () {
 
-    })->name('admin-add-user');
-    Route::get('/dashboard', function () {
+            return view('Admin.user.addUser');
 
-        return view('Admin.dashboard.dashboardAdmin');
+        })->name('admin-add-user');
 
-    })->name('admin-dashboard');
 
-    Route::post('/add/User/',[AddUserController::class,'addUser'])->name('add-User');
+        Route::get('analytics', function () {
+
+           $analytics = Analytics::fetchMostVisitedPages(Period::days(7));
+
+
+            dd($analytics);
+
+        });
+        Route::get('dashboard', function () {
+
+            return view('Admin.dashboard.dashboardAdmin');
+
+        })->name('admin-dashboard');
+
+        Route::get('/user/management',[AddUserController::class,'userManagement'])->name('user-management');
+
+        Route::post('add/User',[AddUserController::class,'addUser'])->name('add-User');
+
+
+        Route::get('logout',[AdminLoginController::class,'logout'])->name('logout-admin');
 });
+
+
+/*
+Login Admin
+ */
+
+Route::middleware('adminLogout')->group(function (){
+    Route::get('/login',[AdminLoginController::class,'loginForm'])->name('admin-login');
+    Route::post('/login',[AdminLoginController::class,'login']);
+});
+
+
+
+
 
 
 

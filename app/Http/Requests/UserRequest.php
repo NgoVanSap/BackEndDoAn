@@ -1,30 +1,48 @@
 <?php
-namespace App\Repositories;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
 
+namespace App\Http\Requests;
 
+use Illuminate\Foundation\Http\FormRequest;
 
-class ValidatorLoginList  implements ValidatorLoginInterface
-
+class UserRequest extends FormRequest
 {
-    public function validatorRegister($request)
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
     {
-        $input = $request->only('hoTen', 'email','password','soDienThoai','ngaySinh','diaChi','avatar','trangThai','phanQuyen');
-        return Validator::make($input, [
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
             'hoTen'             => 'required',
-            'email'             => 'required|unique:users|email',
+            'email'             => 'required|unique:users|required',
             'password'          => 'required|min:6',
             'soDienThoai'       => 'required|unique:users|required|numeric',
-            'ngaySinh'          => 'required',
+            'ngaySinh'          => 'required|date',
             'diaChi'            => 'required',
             'avatar'            => 'required|image',
             'trangThai'         => 'required',
             'phanQuyen'         => 'required',
-        ],[
+
+
+        ];
+    }
+
+    public function messages() {
+        return [
+
             'hoTen.required'    => 'Tên không được để trống',
             'email.required'    => 'Email không được để trống',
-            'email.email'    => 'Email không dúng định dạng',
             'email.unique'      => 'Email này đã đăng kí',
             'password.required' => 'Mật khẩu không được để trống',
             'password.min'      => 'Mật khẩu phải lớn hơn 6 kí tự',
@@ -38,6 +56,6 @@ class ValidatorLoginList  implements ValidatorLoginInterface
             'avatar.image'        => 'Phải nhập đúng định dạng ảnh',
             'trangThai.required'  => 'Trạng thái không được để trống',
             'phanQuyen.required'  => 'Phân quyền không được để trống',
-        ]);
+        ];
     }
 }
