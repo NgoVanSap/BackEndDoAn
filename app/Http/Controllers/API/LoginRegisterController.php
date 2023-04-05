@@ -40,9 +40,9 @@ class LoginRegisterController extends Controller
 
         $validator = $this->validatorRegister->validatorRegister($request);
 
-        // $file = $request->file('avatar');
-        // $path = Storage::disk('google')->putFileAs('/', $file, $file->getClientOriginalName());
-        // $url = Storage::disk('google')->url($path);
+        $file = $request->file('avatar');
+        $path = Storage::disk('google')->putFileAs('/', $file, $file->getClientOriginalName());
+        $url = Storage::disk('google')->url($path);
 
         if ($validator->fails()) {
             return response()->json(['trangThai' => false, 'error' => $validator->messages()]);
@@ -56,7 +56,7 @@ class LoginRegisterController extends Controller
             'ngaySinh'      => date('Y-m-d', strtotime($request->ngaySinh)),
             'gioiTinh'      => $request->gioiTinh,
             'diaChi'        => $request->diaChi,
-            // 'avatar'        => $url,
+            'avatar'        => $url,
             'trangThai'     => $request->trangThai,
             'phanQuyen'     => $request->phanQuyen,
         ]);
@@ -78,7 +78,11 @@ class LoginRegisterController extends Controller
 
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required|string|min:6',
+            'password' => 'required',
+        ],[
+            'email.required'    => 'Email không được để trống',
+            'email.email'    => 'Email không dúng định dạng',
+            'password.required' => 'Mật khẩu không được để trống',
         ]);
 
         if ($validator->fails()) {
