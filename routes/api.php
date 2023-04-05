@@ -22,30 +22,24 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/register',[LoginRegisterController::class,'register'])->name('register');
+Route::namespace('Api')->group(function(){
 
-// Route::get('/register',[LoginRegisterController::class,'register'])->name('register');
-Route::post('/login', function (Request $request) {
-    // $credentials = $request->only('email', 'password');
-    // if (Auth::attempt($credentials)) {
-    //     $user = $request->user();
-    //     $token = $user->createToken('Token Name')->accessToken;
-    //     return response()->json(['token' => $token]);
-    // } else {
-    //     return response()->json(['error' => 'Unauthenticated'], 401);
-    // }
+    Route::post('/register',[LoginRegisterController::class,'register'])->name('register');
 
-    if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
-        $user = Auth::user();
-        $tokenResult =  $user->createToken('MyApp')->accessToken;
-        return response()->json([
-            'success' => 'Đăng nhập thành công!',
-            'token'  => $tokenResult->token,
-            'user'    => $user,
-        ]);
-    }
-        return response()->json(['error'=>'Tài khoản hoặc mật khẩu sai!'], 401);
+    Route::post('/login',[LoginRegisterController::class,'login'])->name('login');
+
+    Route::get('/user',[LoginRegisterController::class,'getUser'])->name('user');
+
+    Route::post('/logout',[LoginRegisterController::class,'logout'])->name('logout');
+
+    Route::post('/refresh',[LoginRegisterController::class,'refresh'])->name('refresh');
+
+
 });
+
+
+
+
 Route::get('/auth/google', function() {
     $client = new GoogleClient();
     $client->setClientId(config('services.google.client_id'));
