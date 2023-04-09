@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->integer('trangThai');
             $table->integer('phanQuyen');
             $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('last_seen')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
