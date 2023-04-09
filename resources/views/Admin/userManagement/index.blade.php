@@ -1,376 +1,162 @@
 @extends('Admin.master')
 @section('content')
     <div class="layout-content">
+        <!-- [ content ] Start -->
         <div class="container-fluid flex-grow-1 container-p-y">
-            <div class="row">
-                <!-- 3rd row Start -->
-                <div class="col-xl-5">
-                    <div class="card mb-4">
-                        <div class="card-header with-elements">
-                            <h6 class="card-header-title mb-0">Tasks</h6>
-                            <div class="card-header-elements ml-auto">
-                                <button type="button" class="btn btn-default btn-xs md-btn-flat">Show more</button>
-                            </div>
-                        </div>
-                        <div style="height: 310px" id="tasks-inner" class="ps ps--active-y">
-                            <div class="card-body">
-                                <p class="text-muted small">Today</p>
-                                <div class="custom-controls-stacked">
-                                    <label class="ui-todo-item custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input">
-                                        <span class="custom-control-label">Buy products</span>
-                                        <span class="ui-todo-badge badge badge-outline-default font-weight-normal ml-2">58 mins left</span>
-                                    </label>
-                                    <label class="ui-todo-item custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input">
-                                        <span class="custom-control-label">Reply to emails</span>
-                                    </label>
-                                    <label class="ui-todo-item custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input">
-                                        <span class="custom-control-label">Write blog post</span>
-                                        <span class="ui-todo-badge badge badge-outline-default font-weight-normal ml-2">20 hours left</span>
-                                    </label>
-                                    <label class="ui-todo-item custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" checked="">
-                                        <span class="custom-control-label">Wash my car</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <hr class="m-0">
-                            <div class="card-body">
-                                <p class="text-muted small">Tomorrow</p>
-                                <div class="custom-controls-stacked">
-                                    <label class="ui-todo-item custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input">
-                                        <span class="custom-control-label">Buy antivirus</span>
-                                    </label>
-                                    <label class="ui-todo-item custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input">
-                                        <span class="custom-control-label">Jane's Happy Birthday</span>
-                                    </label>
-                                    <label class="ui-todo-item custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input">
-                                        <span class="custom-control-label">Call mom</span>
-                                    </label>
-                                </div>
-                            </div>
-                        <div class="ps__rail-x" style="left: 0px; bottom: -57px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 57px; height: 310px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 48px; height: 261px;"></div></div></div>
-                        <div class="card-footer">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Type your task">
-                                <div class="input-group-append">
-                                    <button type="button" class="btn btn-primary">Add</button>
-                                </div>
-                            </div>
-                        </div>
+            <div class="sucs" style=" display: flex;  ">
+                <h4 class="font-weight-bold py-3 mb-0">Quản lí người dùng</h4>
+                @if (session()->has('success'))
+                    <div
+                        class="alert alert-dark-success alert-dismissible fade show"style=" border-radius: 6px;right: 33px; position: absolute; ">
+                        <button type="button" style=" outline: none; " class="close" data-dismiss="alert">×</button>
+                        {{ session()->get('success') }}
                     </div>
-                </div>
-                <div class="col-xl-7">
+                @endif
+            </div>
+            <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('admin-dashboard') }}">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">Quản lí người dùng</li>
+                </ol>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
                     <div class="card mb-4">
                         <div class="card-header with-elements pb-0">
-                            <h6 class="card-header-title mb-0">Customer details</h6>
+                            <h6 class="card-header-title mb-0">Thông tin người dùng</h6>
                             <div class="card-header-elements ml-auto p-0">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
-                                        <a class="nav-link show active" data-toggle="tab" href="#sale-stats">Sale stats</a>
+                                        <a class="nav-link active" data-toggle="tab" href="#sale-stats">Thông tin</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link show" data-toggle="tab" href="#latest-sales">Latest sales</a>
+                                        <a class="nav-link" data-toggle="tab" href="#latest-sales">Thông tin liên lạc</a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                         <div class="nav-tabs-top">
                             <div class="tab-content">
-                                <div class="tab-pane fade active show" id="sale-stats">
-                                    <div style="height: 330px" id="tab-table-1" class="ps ps--active-x ps--active-y">
+                                <div class="tab-pane fade show active" id="sale-stats">
+                                    <div id="tab-table-1" class="ps ps--active-y">
                                         <table class="table table-hover card-table">
                                             <thead>
                                                 <tr>
-                                                    <th>
-                                                        <label class="custom-control custom-checkbox mb-0">
-                                                            <input type="checkbox" class="custom-control-input">
-                                                            <span class="custom-control-label"><strong>Due</strong></span>
-                                                        </label>
-                                                    </th>
                                                     <th>User</th>
-                                                    <th>Description</th>
+                                                    <th>Quyền</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <label class="custom-control custom-checkbox mb-0">
-                                                            <input type="checkbox" class="custom-control-input">
-                                                            <span class="custom-control-label"><strong>12</strong><br><span>hour</span></span>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <div class="media mb-0">
-                                                            <img src="assets/img/avatars/3-small.png" class="d-block ui-w-40 rounded-circle" alt="">
-                                                            <div class="media-body align-self-center ml-3">
-                                                                <h6 class="mb-0">John Deo</h6>
+                                                @foreach ($user as $users)
+                                                    <tr>
+                                                        <td>
+                                                            <div class="media mb-0">
+                                                                <img src="{{ $users->avatar }}"
+                                                                    class="d-block ui-w-40 rounded-circle" alt="">
+                                                                <div class="media-body align-self-center ml-3">
+                                                                    <h6 class="mb-0">{{ $users->hoTen }}</h6>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-inline-block align-middle">
-                                                            <h6 class="mb-1">[#1183] Workaround for OS X selects printing bug</h6>
-                                                            <p class="text-muted mb-0">Chrome fixed the bug several versions ago, thus rendering this...</p>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <label class="custom-control custom-checkbox mb-0">
-                                                            <input type="checkbox" class="custom-control-input">
-                                                            <span class="custom-control-label"><strong>16</strong><br><span>hour</span></span>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <div class="media mb-0">
-                                                            <img src="assets/img/avatars/1-small.png" class="d-block ui-w-40 rounded-circle" alt="">
-                                                            <div class="media-body align-self-center ml-3">
-                                                                <h6 class="mb-0">Jems Win</h6>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-inline-block align-middle">
-                                                            <h6 class="mb-1">[#1249] Vertically center carousel controls</h6>
-                                                            <p class="text-muted mb-0">Try any carousel control and reduce the screen width below...</p>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <label class="custom-control custom-checkbox mb-0">
-                                                            <input type="checkbox" class="custom-control-input">
-                                                            <span class="custom-control-label"><strong>40</strong><br><span>hour</span></span>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <div class="media mb-0">
-                                                            <img src="assets/img/avatars/1-small.png" class="d-block ui-w-40 rounded-circle" alt="">
-                                                            <div class="media-body align-self-center ml-3">
-                                                                <h6 class="mb-0">Jems Wiliiam</h6>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-inline-block align-middle">
-                                                            <h6 class="mb-1">[#1254] Inaccurate small pagination height</h6>
-                                                            <p class="text-muted mb-0">The height of pagination elements is not consistent with...</p>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <label class="custom-control custom-checkbox mb-0">
-                                                            <input type="checkbox" class="custom-control-input">
-                                                            <span class="custom-control-label"><strong>12</strong><br><span>hour</span></span>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <div class="media mb-0">
-                                                            <img src="assets/img/avatars/3-small.png" class="d-block ui-w-40 rounded-circle" alt="">
-                                                            <div class="media-body align-self-center ml-3">
-                                                                <h6 class="mb-0">John Deo</h6>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-inline-block align-middle">
-                                                            <h6 class="mb-1">[#1183] Workaround for OS X selects printing bug</h6>
-                                                            <p class="text-muted mb-0">Chrome fixed the bug several versions ago, thus rendering this...</p>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <label class="custom-control custom-checkbox mb-0">
-                                                            <input type="checkbox" class="custom-control-input">
-                                                            <span class="custom-control-label"><strong>12</strong><br><span>hour</span></span>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <div class="media mb-0">
-                                                            <img src="assets/img/avatars/3-small.png" class="d-block ui-w-40 rounded-circle" alt="">
-                                                            <div class="media-body align-self-center ml-3">
-                                                                <h6 class="mb-0">John Deo</h6>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-inline-block align-middle">
-                                                            <h6 class="mb-1">[#1183] Workaround for OS X selects printing bug</h6>
-                                                            <p class="text-muted mb-0">Chrome fixed the bug several versions ago, thus rendering this...</p>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <label class="custom-control custom-checkbox mb-0">
-                                                            <input type="checkbox" class="custom-control-input">
-                                                            <span class="custom-control-label"><strong>16</strong><br><span>hour</span></span>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <div class="media mb-0">
-                                                            <img src="assets/img/avatars/1-small.png" class="d-block ui-w-40 rounded-circle" alt="">
-                                                            <div class="media-body align-self-center ml-3">
-                                                                <h6 class="mb-0">Jems Win</h6>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-inline-block align-middle">
-                                                            <h6 class="mb-1">[#1249] Vertically center carousel controls</h6>
-                                                            <p class="text-muted mb-0">Try any carousel control and reduce the screen width below...</p>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <label class="custom-control custom-checkbox mb-0">
-                                                            <input type="checkbox" class="custom-control-input">
-                                                            <span class="custom-control-label"><strong>40</strong><br><span>hour</span></span>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <div class="media mb-0">
-                                                            <img src="assets/img/avatars/1-small.png" class="d-block ui-w-40 rounded-circle" alt="">
-                                                            <div class="media-body align-self-center ml-3">
-                                                                <h6 class="mb-0">Jems Wiliiam</h6>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-inline-block align-middle">
-                                                            <h6 class="mb-1">[#1254] Inaccurate small pagination height</h6>
-                                                            <p class="text-muted mb-0">The height of pagination elements is not consistent with...</p>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <label class="custom-control custom-checkbox mb-0">
-                                                            <input type="checkbox" class="custom-control-input">
-                                                            <span class="custom-control-label"><strong>12</strong><br><span>hour</span></span>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <div class="media mb-0">
-                                                            <img src="assets/img/avatars/3-small.png" class="d-block ui-w-40 rounded-circle" alt="">
-                                                            <div class="media-body align-self-center ml-3">
-                                                                <h6 class="mb-0">John Deo</h6>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-inline-block align-middle">
-                                                            <h6 class="mb-1">[#1183] Workaround for OS X selects printing bug</h6>
-                                                            <p class="text-muted mb-0">Chrome fixed the bug several versions ago, thus rendering this...</p>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                        </td>
+                                                        <td style=" display: table-cell; vertical-align: middle; ">
+                                                            @if ($users->phanQuyen >= 3)
+                                                                <span
+                                                                    style=" font-size: 10px; background-color: #e9170b !important; "
+                                                                    class="badge badge-pill badge-success">Admin
+                                                                </span>
+                                                            @elseif ($users->phanQuyen == 2)
+                                                                <span
+                                                                    style=" font-size: 10px; background-color: #0081f5 !important; "
+                                                                    class="badge badge-pill badge-success">Giảng viên
+                                                                </span>
+                                                            @elseif ($users->phanQuyen == 1)
+                                                                <span
+                                                                    style=" font-size: 10px; background-color: #ecef0c !important; "
+                                                                    class="badge badge-pill badge-success">Nhân Viên
+                                                                </span>
+                                                            @endif
+                                                        </td>
+                                                        <td style=" display: table-cell; vertical-align: middle; ">
+                                                            @if ($users->isUserOnline())
+                                                                <span
+                                                                    style=" font-size: 10px; background-color: #02b91c !important; "
+                                                                    class="badge badge-pill badge-success">online</span>
+                                                                </span>
+                                                            @else
+                                                                <span
+                                                                    style=" font-size: 10px; background-color: #beb4b3 !important; "
+                                                                    class="badge badge-pill badge-success">offline</span>
+                                                                </span>
+                                                            @endif
+                                                        </td>
+                                                        <td style=" display: table-cell; vertical-align: middle; ">
+                                                            <a href="#">
+                                                                <button type="button"
+                                                                    class="btn icon-btn btn-sm btn-outline-secondary">
+                                                                    <span class="feather icon-edit-1"></span>
+                                                                </button>
+                                                            </a> / <a
+                                                                href="{{ route('user-delete', ['id' => $users->id]) }}">
+                                                                <button type="button"
+                                                                    class="btn icon-btn btn-sm btn-outline-danger">
+                                                                    <span class="feather icon-trash-2"></span>
+                                                                </button>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
-                                    <div class="ps__rail-x" style="width: 624px; left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 550px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 330px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 200px;"></div></div></div>
-                                    <a href="javascript:" class="card-footer d-block text-center text-dark small font-weight-semibold">SHOW MORE</a>
+                                    </div>
+                                    <a href="javascript:"
+                                        class="card-footer d-block text-center text-dark small font-weight-semibold">SHOW
+                                        MORE</a>
                                 </div>
                                 <div class="tab-pane fade" id="latest-sales">
-                                    <div style="height: 330px" id="tab-table-2" class="ps">
+                                    <div id="tab-table-2" class="ps">
                                         <table class="table table-hover card-table">
                                             <thead>
                                                 <tr>
-                                                    <th>Product</th>
-                                                    <th>Qty.</th>
-                                                    <th>Sum.</th>
+                                                    <th>Email</th>
+                                                    <th>Số điện thoại</th>
+                                                    <th>Giới tính</th>
+                                                    <th>Ngày sinh</th>
+                                                    <th>Địa chỉ</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td class="align-middle">
-                                                        <a href="javascript:" class="text-dark">PlayStation 4 1TB (Jet Black)</a>
-                                                    </td>
-                                                    <td class="align-middle">1</td>
-                                                    <td class="align-middle">$480.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="align-middle">
-                                                        <a href="javascript:" class="text-dark">Nike Men Black Liteforce III Sneakers</a>
-                                                    </td>
-                                                    <td class="align-middle">2</td>
-                                                    <td class="align-middle">$115.1</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="align-middle">
-                                                        <a href="javascript:" class="text-dark">Wireless headphones</a>
-                                                    </td>
-                                                    <td class="align-middle">1</td>
-                                                    <td class="align-middle">$235.55</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="align-middle">
-                                                        <a href="javascript:" class="text-dark">HERO ATHLETES BAG</a>
-                                                    </td>
-                                                    <td class="align-middle">1</td>
-                                                    <td class="align-middle">$160.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="align-middle">
-                                                        <a href="javascript:" class="text-dark">POÄNG</a>
-                                                    </td>
-                                                    <td class="align-middle">3</td>
-                                                    <td class="align-middle">$477.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="align-middle">
-                                                        <a href="javascript:" class="text-dark">Apple iWatch (black)</a>
-                                                    </td>
-                                                    <td class="align-middle">1</td>
-                                                    <td class="align-middle">$399.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="align-middle">
-                                                        <a href="javascript:" class="text-dark">WALKING 400 BLUE CAT3</a>
-                                                    </td>
-                                                    <td class="align-middle">2</td>
-                                                    <td class="align-middle">$41.1</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="align-middle">
-                                                        <a href="javascript:" class="text-dark">Wireless headphones</a>
-                                                    </td>
-                                                    <td class="align-middle">1</td>
-                                                    <td class="align-middle">$235.55</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="align-middle">
-                                                        <a href="javascript:" class="text-dark">HERO ATHLETES BAG</a>
-                                                    </td>
-                                                    <td class="align-middle">1</td>
-                                                    <td class="align-middle">$160.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="align-middle">
-                                                        <a href="javascript:" class="text-dark">POÄNG</a>
-                                                    </td>
-                                                    <td class="align-middle">3</td>
-                                                    <td class="align-middle">$477.00</td>
-                                                </tr>
+                                                @foreach ($userInformation as $userInformations)
+                                                    <tr>
+                                                        <td class="align-middle">
+                                                            <a href="javascript:"
+                                                                class="text-dark">{{ $userInformations->email }}</a>
+                                                        </td>
+                                                        <td class="align-middle">{{ $userInformations->soDienThoai }}</td>
+                                                        <td class="align-middle">{{ $userInformations->gioiTinh }}</td>
+                                                        <td class="align-middle">
+                                                            {{ date('d-m-Y', strtotime($userInformations->ngaySinh)) }}</td>
+                                                        <td class="align-middle">{{ $userInformations->diaChi }}</td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
-                                    <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></div>
-                                    <a href="javascript:" class="card-footer d-block text-center text-dark small font-weight-semibold">SHOW MORE</a>
+                                    </div>
+                                    <a href="javascript:"
+                                        class="card-footer d-block text-center text-dark small font-weight-semibold">SHOW
+                                        MORE</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- 3rd row Start -->
             </div>
         </div>
+        <!-- [ content ] End -->
     </div>
 @endsection

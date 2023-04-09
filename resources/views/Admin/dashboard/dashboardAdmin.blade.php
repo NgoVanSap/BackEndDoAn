@@ -257,7 +257,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-7">
+            <div class="col-xl-12">
                 <div class="card mb-4">
                     <div class="card-header with-elements pb-0">
                         <h6 class="card-header-title mb-0">Customer details</h6>

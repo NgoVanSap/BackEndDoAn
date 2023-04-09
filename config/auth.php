@@ -44,6 +44,7 @@ return [
             'driver' => 'jwt',
             'provider' => 'users',
             'hash' => false,
+            'expires_in' => 3,
         ],
     ],
 

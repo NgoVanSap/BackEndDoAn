@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Cache;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
@@ -29,6 +29,7 @@ class User extends Authenticatable implements JWTSubject
         'avatar',
         'trangThai',
         'phanQuyen',
+        'last_seen',
     ];
 
     /**
@@ -50,9 +51,7 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-
     public function getJWTIdentifier()
-
     {
 
         return $this->getKey();
@@ -60,10 +59,14 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function getJWTCustomClaims()
-
     {
 
         return [];
 
+    }
+
+    public function isUserOnline()
+    {
+        return Cache::has('user-is-online' . $this->id);
     }
 }
