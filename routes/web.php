@@ -43,7 +43,12 @@ Route::middleware('adminLogin')->group(function () {
 
         })->name('admin-add-user');
 
-        Route::get('user/management', [AddUserController::class, 'userManagement'])->name('user-management');
+        Route::get('quan-li-nhan-vien', [AddUserController::class, 'userManagement'])->name('user-management');
+        Route::get('quan-li-giang-vien', [AddUserController::class, 'userLecturers'])->name('user-lecturers');
+
+        Route::get('user/edit/{id}', [AddUserController::class, 'userEdit'])->name('user-edit');
+        Route::post('user/update/{id}', [AddUserController::class, 'userUpdate'])->name('user-update');
+
         Route::get('user/delete/{id}', [AddUserController::class, 'userDelete'])->name('user-delete');
         Route::post('add/User', [AddUserController::class, 'addUser'])->name('add-User');
     });
@@ -55,6 +60,10 @@ Route::middleware('adminLogin')->group(function () {
 /*
 Login Admin
  */
+
+Route::get('login/test', function () {
+    return view('Admin.userManagement.test');
+});
 
 Route::middleware('adminLogout')->group(function () {
     Route::get('/login', [AdminLoginController::class, 'loginForm'])->name('admin-login');

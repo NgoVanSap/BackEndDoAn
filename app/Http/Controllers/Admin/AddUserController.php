@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use file;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Storage;
@@ -41,23 +42,53 @@ class AddUserController extends Controller
     {
 
         $userId = Auth::user()->id;
-        $user = User::select('id', 'hoTen', 'avatar', 'phanQuyen', 'trangThai')
-            ->where('id', '!=', $userId)
-            ->orderBy('last_seen', 'DESC')
-            ->get();
-        $userInformation = User::select('email', 'soDienThoai', 'gioiTinh', 'ngaySinh', 'diaChi')
-            ->where('id', '!=', $userId)
-            ->orderBy('last_seen', 'DESC')->get();
 
-        return view('Admin.userManagement.index', [
-            'user' => $user,
-            'userInformation' => $userInformation,
-        ]);
+        $users = User::select('id', 'hoTen', 'avatar', 'phanQuyen', 'trangThai', 'email', 'soDienThoai', 'gioiTinh', 'ngaySinh', 'diaChi')
+            ->where('id', '!=', $userId)
+            ->where('phanQuyen', 2)
+            ->orderBy('last_seen', 'DESC')
+            ->paginate(5);
+
+        return view('Admin.userManagement.index', compact('users'));
+    }
+
+    public function userLecturers()
+    {
+        $userId = Auth::user()->id;
+        $users = User::select('id', 'hoTen', 'avatar', 'phanQuyen', 'trangThai', 'email', 'soDienThoai', 'gioiTinh', 'ngaySinh', 'diaChi')
+            ->where('id', '!=', $userId)
+            ->where('phanQuyen', 1)
+            ->orderBy('last_seen', 'DESC')
+            ->paginate(5);
+
+        return view('Admin.userManagement.index2', compact('users'));
+    }
+
+    public function userEdit($id)
+    {
+
+        $user = User::where('id', $id)->firstOrFail();
+
+        return view('Admin.userManagement.edit', compact('user'));
+
+    }
+
+    public function userUpdate(Request $request, $id)
+    {
+
+        if ($request->file('avatar')) {
+
+            dd('oke');
+
+        } else {
+            dd('cc');
+        }
+
     }
 
     public function userDelete($id)
     {
-        $userDelete = User::where('id', $id)->delete();
+        User::where('id', $id)->delete();
 
         return redirect()->back()->with('success', 'Xóa người dùng thành công');
 

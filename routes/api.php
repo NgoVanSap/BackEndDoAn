@@ -1,11 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\LoginRegisterController;
 use Google\Client as GoogleClient;
 use Google\Service\Oauth2;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,31 +15,28 @@ use Google\Service\Oauth2;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
+ */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::middleware('cors')->group(function () {
+    Route::namespace ('Api')->group(function () {
 
-Route::namespace('Api')->group(function(){
+        Route::post('/register', [LoginRegisterController::class, 'register'])->name('register');
 
-    Route::post('/register',[LoginRegisterController::class,'register'])->name('register');
+        Route::post('/login', [LoginRegisterController::class, 'login'])->name('login');
 
-    Route::post('/login',[LoginRegisterController::class,'login'])->name('login');
+        Route::get('/user', [LoginRegisterController::class, 'getUser'])->name('user');
 
-    Route::get('/user',[LoginRegisterController::class,'getUser'])->name('user');
+        Route::post('/logout', [LoginRegisterController::class, 'logout'])->name('logout');
 
-    Route::post('/logout',[LoginRegisterController::class,'logout'])->name('logout');
+        Route::post('/refresh', [LoginRegisterController::class, 'refresh'])->name('refresh');
 
-    Route::post('/refresh',[LoginRegisterController::class,'refresh'])->name('refresh');
-
-
+    });
 });
 
-
-
-
-Route::get('/auth/google', function() {
+Route::get('/auth/google', function () {
     $client = new GoogleClient();
     $client->setClientId(config('services.google.client_id'));
     $client->setClientSecret(config('services.google.client_secret'));
@@ -51,29 +47,28 @@ Route::get('/auth/google', function() {
     return redirect($authUrl);
 });
 
+Route::get('/auth/google/callback', function (Request $request) {
+    $client = new GoogleClient();
+    $client->setClientId(config('services.google.client_id'));
+    $client->setClientSecret(config('services.google.client_secret'));
+    $client->setRedirectUri(config('services.google.redirect'));
+    $client->addScope('email');
+    $client->addScope('profile');
 
-Route::get('/auth/google/callback', function(Request $request) {
-        $client = new GoogleClient();
-        $client->setClientId(config('services.google.client_id'));
-        $client->setClientSecret(config('services.google.client_secret'));
-        $client->setRedirectUri(config('services.google.redirect'));
-        $client->addScope('email');
-        $client->addScope('profile');
+    if ($request->get('code')) {
+        $token = $client->fetchAccessTokenWithAuthCode($request->get('code'));
+        $oauth = new Oauth2($client);
+        $userData = $oauth->userinfo->get();
 
-        if ($request->get('code')) {
-            $token = $client->fetchAccessTokenWithAuthCode($request->get('code'));
-            $oauth = new Oauth2($client);
-            $userData = $oauth->userinfo->get();
+        $user = [
+            'name' => $userData->name,
+            'email' => $userData->email,
+            'avatar' => $userData->picture,
+            'token' => $token,
+        ];
+        session(['user' => $user]);
 
-            $user = [
-                'name' => $userData->name,
-                'email' => $userData->email,
-                'avatar' => $userData->picture,
-                'token' => $token,
-            ];
-            session(['user' => $user]);
-
-            return json_encode($user);
-        }
+        return json_encode($user);
+    }
 
 });

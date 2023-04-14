@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'adminLogout' => \App\Http\Middleware\LogoutAdminMiddleware::class,
         'adminDelete' => \App\Http\Middleware\DeleteMiddleware::class,
         'adminMiddleware' => \App\Http\Middleware\AdminMiddleware::class,
+        'cors' => \App\Http\Middleware\CorsMiddleware::class,
 
     ];
 }

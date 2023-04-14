@@ -3,7 +3,8 @@
         <span class="app-brand-logo demo">
             <img src="{{ URL::to('assetsAdmin/img/logo.png') }}" alt="Brand Logo" class="img-fluid">
         </span>
-        <a href="{{ route("admin-dashboard") }}" class="app-brand-text demo sidenav-text font-weight-normal ml-2">Empire</a>
+        <a href="{{ route('admin-dashboard') }}"
+            class="app-brand-text demo sidenav-text font-weight-normal ml-2">Empire</a>
         <a href="javascript:" class="layout-sidenav-toggle sidenav-link text-large ml-auto">
             <i class="ion ion-md-menu align-middle"></i>
         </a>
@@ -13,7 +14,7 @@
     <ul class="sidenav-inner py-1">
 
         <li class="sidenav-item active">
-            <a href="{{ route("admin-dashboard") }}" class="sidenav-link">
+            <a href="{{ route('admin-dashboard') }}" class="sidenav-link">
                 <i class="sidenav-icon feather icon-home"></i>
                 <div>Dashboards</div>
                 <div class="pl-1 ml-auto">
@@ -37,7 +38,12 @@
                 </li>
                 <li class="sidenav-item">
                     <a href="{{ route('user-management') }}" class="sidenav-link">
-                        <div>Quản lí người dùng </div>
+                        <div>Quản lí nhân viên </div>
+                    </a>
+                </li>
+                <li class="sidenav-item">
+                    <a href="{{ route('user-lecturers') }}" class="sidenav-link">
+                        <div>Quản lí giảng viên </div>
                     </a>
                 </li>
             </ul>

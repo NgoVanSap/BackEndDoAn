@@ -4,7 +4,7 @@
         <!-- [ content ] Start -->
         <div class="container-fluid flex-grow-1 container-p-y">
             <div class="sucs" style=" display: flex;  ">
-                <h4 class="font-weight-bold py-3 mb-0">Quản lí nhân viên</h4>
+                <h4 class="font-weight-bold py-3 mb-0">Quản lí giảng viên</h4>
                 @if (session()->has('success'))
                     <div
                         class="alert alert-dark-success alert-dismissible fade show"style=" border-radius: 6px;right: 33px; position: absolute; ">
@@ -20,14 +20,14 @@
                             <i class="feather icon-home"></i>
                         </a>
                     </li>
-                    <li class="breadcrumb-item active">Quản lí nhân viên</li>
+                    <li class="breadcrumb-item active">Quản lí giảng viên</li>
                 </ol>
             </div>
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card mb-4">
                         <div class="card-header with-elements pb-0">
-                            <h6 class="card-header-title mb-0">Thông tin nhân viên</h6>
+                            <h6 class="card-header-title mb-0">Thông tin giảng viên</h6>
                             <div class="card-header-elements ml-auto p-0">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
@@ -70,16 +70,11 @@
                                                                     style=" font-size: 10px; background-color: #e9170b !important; "
                                                                     class="badge badge-pill badge-success">Admin
                                                                 </span>
-                                                            @elseif ($user->phanQuyen == 2)
-                                                                <span
-                                                                    style=" font-size: 10px; background-color: #ecef0c !important; "
-                                                                    class="badge badge-pill badge-success">Nhân viên
-                                                                </span>
-                                                                {{-- @elseif ($user->phanQuyen == 1)
+                                                            @elseif ($user->phanQuyen == 1)
                                                                 <span
                                                                     style=" font-size: 10px; background-color: #0081f5 !important; "
-                                                                    class="badge badge-pill badge-success">
-                                                                </span> --}}
+                                                                    class="badge badge-pill badge-success">Giảng viên
+                                                                </span>
                                                             @endif
                                                         </td>
                                                         <td style=" display: table-cell; vertical-align: middle; ">
@@ -96,7 +91,7 @@
                                                             @endif
                                                         </td>
                                                         <td style=" display: table-cell; vertical-align: middle; ">
-                                                            <a href="{{ route('user-edit', ['id' => $user->id]) }}">
+                                                            <a href="#">
                                                                 <button type="button"
                                                                     class="btn icon-btn btn-sm btn-outline-secondary">
                                                                     <span class="feather icon-edit-1"></span>
