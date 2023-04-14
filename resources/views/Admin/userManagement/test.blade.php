@@ -47,7 +47,7 @@
         e.preventDefault();
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
-        const response = await fetch('/api/login', {
+        const response = await fetch('https://backenddoan-production.up.railway.app/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -58,7 +58,7 @@
             })
         });
         const data = await response.json();
-        console.log(data);
+        // Xử lý kết quả đăng nhập ở đây
     });
 </script>
 
