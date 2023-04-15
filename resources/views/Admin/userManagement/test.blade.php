@@ -47,16 +47,17 @@
         e.preventDefault();
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
-        const response = await fetch('https://backenddoan-production.up.railway.app/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password
-            })
-        });
+        const response = await fetch(
+            'https://7d47-2405-4802-609b-cf40-99e2-92ef-3191-7dcd.ngrok-free.app/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            });
         const data = await response.json();
         // Xử lý kết quả đăng nhập ở đây
     });
