@@ -38,7 +38,7 @@ class LoginRegisterController extends Controller
 
         $file = $request->file('avatar');
         if ($validator->fails()) {
-            return response()->json(['trangThai' => false, 'error' => $validator->messages()]);
+            return response()->json(['trangThai' => false, 'error' => $validator->messages(), 422]);
         }
         $imgLink = 'https://drive.google.com/uc?id=1IpUBpYmthTLWUFqvbSPAiea-iaVpj8N5&export=media';
 
@@ -79,7 +79,7 @@ class LoginRegisterController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(), 422);
         }
 
         if (!$token = auth('api')->attempt($validator->validated())) {
