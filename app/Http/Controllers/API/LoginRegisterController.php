@@ -38,7 +38,7 @@ class LoginRegisterController extends Controller
 
         $file = $request->file('avatar');
         if ($validator->fails()) {
-            return response()->json(['trangThai' => false, 'error' => $validator->messages(), 422]);
+            return response()->json(['trangThai' => false, 'error' => $validator->messages()], 422);
         }
         $imgLink = 'https://drive.google.com/uc?id=1IpUBpYmthTLWUFqvbSPAiea-iaVpj8N5&export=media';
 
