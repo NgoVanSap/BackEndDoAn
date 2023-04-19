@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('hoTen');
             $table->enum('gioiTinh', ['Nam', 'Nữ']);
-            $table->date('ngaySinh');
+            $table->date('ngaySinh')->nullable();
             $table->string('diaChi');
             $table->string('avatar')->nullable();
             $table->integer('trangThai');
