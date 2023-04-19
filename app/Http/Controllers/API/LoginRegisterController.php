@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
-use Storage;
 
 class LoginRegisterController extends Controller
 {
@@ -38,27 +37,23 @@ class LoginRegisterController extends Controller
         $validator = $this->validatorRegister->validatorRegister($request);
 
         $file = $request->file('avatar');
-        $path = Storage::disk('google')->putFileAs('/', $file, $file->getClientOriginalName());
-        $url = Storage::disk('google')->url($path);
-
         if ($validator->fails()) {
             return response()->json(['trangThai' => false, 'error' => $validator->messages()]);
         }
+        $imgLink = 'https://drive.google.com/uc?id=1IpUBpYmthTLWUFqvbSPAiea-iaVpj8N5&export=media';
 
         $userCreate = User::create([
             'hoTen' => $request->hoTen,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'soDienThoai' => $request->soDienThoai,
-            'ngaySinh' => date('Y-m-d', strtotime($request->ngaySinh)),
-            'gioiTinh' => $request->gioiTinh,
-            'diaChi' => $request->diaChi,
-            'avatar' => $url,
-            'trangThai' => $request->trangThai,
-            'phanQuyen' => $request->phanQuyen,
+            'ngaySinh' => '',
+            'gioiTinh' => 'Nam',
+            'diaChi' => '',
+            'avatar' => $imgLink,
+            'trangThai' => 1,
+            'phanQuyen' => 0,
         ]);
-        $tokenResult['token'] = $userCreate->createToken('MyApp')->accessToken->token;
-
         if ($userCreate) {
             return json_encode([
                 'thongBao' => 'Đăng kí thành công!',
