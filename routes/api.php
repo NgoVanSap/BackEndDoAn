@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::middleware('cors')->group(function () {
-    Route::post('post/category', [CategoryController::class, 'createCategory'])->name('createCategory');
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::namespace ('Api')->group(function () {
@@ -33,6 +32,8 @@ Route::middleware('cors')->group(function () {
             Route::post('logout', [LoginRegisterController::class, 'logout'])->name('logout');
 
             Route::post('refresh', [LoginRegisterController::class, 'refresh'])->name('refresh');
+            Route::post('post/category', [CategoryController::class, 'createCategory'])->name('createCategory');
+
             Route::middleware('CheckUserRole')->group(function () {
 
             });
