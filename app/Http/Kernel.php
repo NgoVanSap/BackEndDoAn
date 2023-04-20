@@ -68,6 +68,6 @@ class Kernel extends HttpKernel
         'adminDelete' => \App\Http\Middleware\DeleteMiddleware::class,
         'adminMiddleware' => \App\Http\Middleware\AdminMiddleware::class,
         'cors' => \App\Http\Middleware\CorsMiddleware::class,
-
+        'CheckUserRole' => \App\Http\Middleware\CheckUserRole::class,
     ];
 }

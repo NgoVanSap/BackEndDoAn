@@ -65,6 +65,10 @@ Route::get('login/test', function () {
     return view('Admin.userManagement.test');
 });
 
+Route::get('category', function () {
+    return view('Admin.userManagement.category');
+});
+
 Route::middleware('adminLogout')->group(function () {
     Route::get('/login', [AdminLoginController::class, 'loginForm'])->name('admin-login');
     Route::post('/login', [AdminLoginController::class, 'login']);

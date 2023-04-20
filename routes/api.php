@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\LoginRegisterController;
 use Google\Client as GoogleClient;
 use Google\Service\Oauth2;
@@ -23,15 +24,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('cors')->group(function () {
     Route::namespace ('Api')->group(function () {
 
-        Route::post('/register', [LoginRegisterController::class, 'register'])->name('register');
+        Route::post('register', [LoginRegisterController::class, 'register'])->name('register');
 
-        Route::post('/login', [LoginRegisterController::class, 'login'])->name('login');
+        Route::post('login', [LoginRegisterController::class, 'login'])->name('login');
 
-        Route::get('/user', [LoginRegisterController::class, 'getUser'])->name('user');
+        Route::get('user', [LoginRegisterController::class, 'getUser'])->name('user');
 
-        Route::post('/logout', [LoginRegisterController::class, 'logout'])->name('logout');
+        Route::post('logout', [LoginRegisterController::class, 'logout'])->name('logout');
 
-        Route::post('/refresh', [LoginRegisterController::class, 'refresh'])->name('refresh');
+        Route::post('refresh', [LoginRegisterController::class, 'refresh'])->name('refresh');
+
+        Route::middleware('CheckUserRole')->group(function () {
+
+            Route::post('post/category', [CategoryController::class, 'createCategory'])->name('createCategory');
+
+        });
 
     });
 });
