@@ -36,7 +36,7 @@
                 };
 
                 $.ajax({
-                    url: '/api/categories',
+                    url: 'https://backenddoan-production.up.railway.app/api/post/category',
                     method: 'POST',
                     data: data,
                     headers: {
