@@ -10,12 +10,16 @@ use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
-    public function createCategory(Request $request, $id)
+    public function createCategory(Request $request)
     {
+        dd("okd");
         $validator = Validator::make($request->all(), [
+
             'tenDanhMuc' => 'required',
             'moTa' => 'required',
+
         ], [
+
             'tenDanhMuc.required' => 'Tên danh mục không để trống',
             'moTa.required' => 'Mô tả không để trống',
 

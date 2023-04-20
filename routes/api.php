@@ -31,10 +31,10 @@ Route::middleware('cors')->group(function () {
             Route::post('logout', [LoginRegisterController::class, 'logout'])->name('logout');
 
             Route::post('refresh', [LoginRegisterController::class, 'refresh'])->name('refresh');
-
+            Route::post('post/category', [CategoryController::class, 'createCategory'])->name('createCategory');
             Route::middleware('CheckUserRole')->group(function () {
 
-                Route::post('post/category', [CategoryController::class, 'createCategory'])->name('createCategory');
+
 
             });
 
@@ -45,21 +45,6 @@ Route::middleware('cors')->group(function () {
 
     Route::post('login', [LoginRegisterController::class, 'login'])->name('login');
 
-});
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/auth/me', [UserController::class, 'getme']);
-    Route::post('/auth/logout', [UserController::class, 'logout']);
-    Route::post('/auth/yeu-thich', [HomeController::class, 'yeuthich']);
-    Route::get('/auth/yeu-thich', [HomeController::class, 'yeu']);
-    Route::delete('/auth/yeu-thich/{id}', [HomeController::class, 'deleteYeu']);
-    Route::post('/auth/danh-gia/{id}', [UserController::class, 'danhgiaUser']);
-    // Route::put('/auth/danh-gia/{id}', [UserController::class, 'danhgiaUser']);
-    Route::put('/auth/update-profile', [UserController::class, 'UpdateProfile']);
-    Route::get('/auth/lich-su-don-hang', [lich_su_mua_hangController::class, 'getData']);
-    Route::post('/auth/don-hang', [UserController::class, 'DonHang']);
-    // Route::get('/lich-su-mua-hang/detail/{id}',[lich_su_mua_hangController::class,'detail']);
-    Route::get('/check', [NhanVienController::class, 'check']);
 });
 
 Route::get('/auth/google', function () {
