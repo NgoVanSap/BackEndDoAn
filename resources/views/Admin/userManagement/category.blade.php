@@ -31,8 +31,8 @@
                 var categorymota = $('#category-mota').val();
 
                 var data = {
-                    name: categoryName,
-                    mota: categorymota
+                    tenDanhMuc: categoryName,
+                    moTa: categorymota
                 };
 
                 $.ajax({
