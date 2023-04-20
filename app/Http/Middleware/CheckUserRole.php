@@ -16,13 +16,22 @@ class CheckUserRole
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!$request->user()) {
-            return response()->json(['error' => 'Bạn chưa đăng nhập.'], 401);
-        }
 
-        if ($request->user()->phanQuyen != 2) {
-            return response()->json(['error' => 'Bạn không có quyền để đăng danh mục.'], 401);
+        if (Auth::guard('api')->check()) {
+
+            if (auth()->user()->phanQuyen == 2) {
+
+                return $next($request);
+
+            } else {
+
+                return response()->json(['error' => 'Bạn không có quyền để đăng n.'], 401);
+
+            }
+        } else {
+
+            return response()->json(['error' => 'Bạn chưa đăng nhập.'], 401);
+
         }
-        return $next($request);
     }
 }
