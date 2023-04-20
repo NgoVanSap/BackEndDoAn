@@ -29,15 +29,23 @@ class CategoryController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        if (Auth::guard('api')->check()) {
-            $user = Auth::guard('api')->user();
-            $createCategory = Category::create([
-                'idGiangVien' => $user->id,
-                'tenDanhMuc' => $request->tenDanhMuc,
-                'moTa' => $request->moTa,
-            ]);
+        $user = Auth::guard('api')->user();
+        $createCategory = Category::create([
+            'idGiangVien' => $user->id,
+            'tenDanhMuc' => $request->tenDanhMuc,
+            'moTa' => $request->moTa,
+        ]);
 
-            return response()->json(['message' => 'Tạo danh mục thành công'], 200);
-        }
+        return response()->json(['message' => 'Tạo danh mục thành công'], 200);
+
+    }
+
+    public function getCategory()
+    {
+        $user = Auth::guard('api')->user();
+        $userId = $user->id;
+        $categories = Category::where('idGiangVien', $userId)->get();
+
+        return response()->json(['data' => $categories], 200);
     }
 }
