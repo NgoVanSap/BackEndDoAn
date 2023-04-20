@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
@@ -28,17 +29,15 @@ class CategoryController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $teacherId = auth()->user()->id;
+        if (Auth::guard('api')->check()) {
+            $user = Auth::guard('api')->user();
+            $createCategory = Category::create([
+                'idGiangVien' => $user->id,
+                'tenKhoaHoc' => $request->tenDanhMuc,
+                'moTa' => $request->moTa,
+            ]);
 
-        $createCategory = Category::create([
-            'idGiangVien' => $teacherId,
-            'tenKhoaHoc' => $request->tenDanhMuc,
-            'moTa' => $request->moTa,
-        ]);
-
-        if ($createCategory) {
             return response()->json(['message' => 'Tạo danh mục thành công'], 200);
         }
-
     }
 }
