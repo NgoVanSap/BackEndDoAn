@@ -12,7 +12,6 @@ class CategoryController extends Controller
 {
     public function createCategory(Request $request)
     {
-        dd("okd");
         $validator = Validator::make($request->all(), [
 
             'tenDanhMuc' => 'required',
