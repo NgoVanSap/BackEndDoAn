@@ -33,7 +33,7 @@ class CategoryController extends Controller
             $user = Auth::guard('api')->user();
             $createCategory = Category::create([
                 'idGiangVien' => $user->id,
-                'tenKhoaHoc' => $request->tenDanhMuc,
+                'tenDanhMuc' => $request->tenDanhMuc,
                 'moTa' => $request->moTa,
             ]);
 
