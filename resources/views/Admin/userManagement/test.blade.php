@@ -59,7 +59,7 @@
                 })
             });
         const data = await response.json();
-        // Xử lý kết quả đăng nhập ở đây
+        localStorage.setItem('access_token', data.access_token);
         console.log(data);
     });
 </script>
