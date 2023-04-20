@@ -25,10 +25,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('cors')->group(function () {
 
     Route::middleware('CheckUserRole')->group(function () {
-        Route::middleware(['auth.api'])->group(function () {
-            Route::post('post/category', [CategoryController::class, 'createCategory'])->name('createCategory');
-        });
-
+        Route::post('post/category', [CategoryController::class, 'createCategory'])->name('createCategory');
     });
 
     Route::middleware('auth:sanctum')->group(function () {
