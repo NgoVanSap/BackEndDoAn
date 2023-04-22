@@ -22,7 +22,7 @@ class CreateCoursesTable extends Migration
             $table->integer('trangThai');
             $table->integer('idGiangVien');
             $table->integer('idNguoiDung');
-            $table->integer('idDanhMuc')->unsigned();
+            $table->unsignedBigInteger('idDanhMuc');
             $table->foreign('idDanhMuc')->references('id')->on('categories');
             $table->timestamps();
         });
