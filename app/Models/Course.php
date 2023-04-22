@@ -15,7 +15,6 @@ class Course extends Model
         'tenKhoaHoc',
         'moTa',
         'linkVideo',
-        'tenKhoaHoc',
         'giaCa',
         'trangThai',
         'idGiangVien',
