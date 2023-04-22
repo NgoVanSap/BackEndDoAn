@@ -13,17 +13,7 @@ class CategoryController extends Controller
 {
     public function createCategory(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-
-            'tenDanhMuc' => 'required',
-            'moTa' => 'required',
-
-        ], [
-
-            'tenDanhMuc.required' => 'Tên danh mục không để trống',
-            'moTa.required' => 'Mô tả không để trống',
-
-        ]);
+        $validator = $this->validator($request);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
@@ -45,7 +35,22 @@ class CategoryController extends Controller
         $user = Auth::guard('api')->user();
         $userId = $user->id;
         $categories = Category::where('idGiangVien', $userId)->get();
-
         return response()->json(['data' => $categories], 200);
+    }
+
+    protected function validator($request)
+    {
+
+        return Validator::make($request->all(), [
+
+            'tenDanhMuc' => 'required',
+            'moTa' => 'required',
+
+        ], [
+
+            'tenDanhMuc.required' => 'Tên danh mục không để trống',
+            'moTa.required' => 'Mô tả không để trống',
+
+        ]);
     }
 }

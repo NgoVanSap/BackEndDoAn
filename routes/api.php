@@ -34,12 +34,11 @@ Route::middleware('cors')->group(function () {
 
             Route::get('user', [LoginRegisterController::class, 'getUser'])->name('user');
 
-            Route::post('logout', [LoginRegisterController::class, 'logout'])->name('logout');
-
             Route::post('refresh', [LoginRegisterController::class, 'refresh'])->name('refresh');
 
         });
     });
+    Route::post('logout', [LoginRegisterController::class, 'logout'])->name('logout');
 
     Route::post('register', [LoginRegisterController::class, 'register'])->name('register');
 

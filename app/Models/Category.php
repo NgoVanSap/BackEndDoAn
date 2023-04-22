@@ -17,4 +17,9 @@ class Category extends Model
         'moTa',
     ];
 
+    public function course()
+    {
+        return $this->hasMany('App\Models\Course');
+    }
+
 }

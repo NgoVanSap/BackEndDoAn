@@ -83,9 +83,7 @@ class LoginRegisterController extends Controller
         }
 
         if (!$token = auth('api')->attempt($validator->validated())) {
-            return response()->json([
-                'error' => 'Thông tin đăng nhập sai!',
-            ]);
+            return response()->json(['error' => 'Thông tin đăng nhập sai!'], 422);
         }
         $expiresAt = now()->addMinutes(1);
         Cache::put('user-is-online' . Auth::user()->id, true, $expiresAt);
@@ -107,7 +105,7 @@ class LoginRegisterController extends Controller
         Auth::guard('api')->logout();
         return response()->json([
             'message' => 'Đăng xuất thành công!',
-        ]);
+        ], 200);
     }
 
     /*
@@ -160,7 +158,7 @@ class LoginRegisterController extends Controller
             'access_token' => $token,
             'user' => auth('api')->user(),
 
-        ]);
+        ], 200);
     }
 
 }
