@@ -69,6 +69,10 @@ Route::get('category', function () {
     return view('Admin.userManagement.category');
 });
 
+Route::get('course', function () {
+    return view('Admin.userManagement.testkhoa');
+});
+
 Route::middleware('adminLogout')->group(function () {
     Route::get('/login', [AdminLoginController::class, 'loginForm'])->name('admin-login');
     Route::post('/login', [AdminLoginController::class, 'login']);

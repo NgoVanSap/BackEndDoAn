@@ -27,6 +27,7 @@ Route::middleware('cors')->group(function () {
     Route::middleware('CheckUserRole')->group(function () {
         Route::post('post/category', [CategoryController::class, 'createCategory'])->name('createCategory');
         Route::get('get/category', [CategoryController::class, 'getCategory'])->name('getCategory');
+        Route::post('post/course', [CategoryController::class, 'createCourse'])->name('createCourse');
     });
 
     Route::middleware('auth:sanctum')->group(function () {

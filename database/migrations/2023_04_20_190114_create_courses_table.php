@@ -18,12 +18,12 @@ class CreateCoursesTable extends Migration
             $table->string('tenKhoaHoc');
             $table->string('moTa');
             $table->string('linkVideo');
-            $table->string('tenKhoaHoc');
             $table->integer('giaCa');
             $table->integer('trangThai');
             $table->integer('idGiangVien');
-            $table->integer('idDanhMuc');
             $table->integer('idNguoiDung');
+            $table->integer('idDanhMuc')->unsigned();
+            $table->foreign('idDanhMuc')->references('id')->on('categories');
             $table->timestamps();
         });
     }

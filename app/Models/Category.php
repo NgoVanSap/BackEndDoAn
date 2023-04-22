@@ -19,7 +19,7 @@ class Category extends Model
 
     public function course()
     {
-        return $this->hasMany('App\Models\Course');
+        return $this->hasMany(Course::class);
     }
 
 }
